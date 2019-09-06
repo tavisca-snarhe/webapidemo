@@ -4,38 +4,39 @@ namespace webapidemo.Controllers
 {
     public class BookStore
     {
-        static List<Book> books = new List<Book>() { new Book() { Id = 121, Name = "Book2", Category = "Ed", Author = "Saurabh Narhe", Price = 123 } };
+        private static List<Book> _books = new List<Book>() { new Book() { Id = 121, Name = "Book2", Category = "Ed", Author = "Saurabh Narhe", Price = 123 } };
 
         public BookStore() { }
 
         public Book AddBook(Book book)
         {
-            books.Add(book);
+            _books.Add(book);
             return book;
         }
 
         public Book UpdateBook(int bookId, Book bookToUpdate)
         {
-            Book bookToDelete = books.Find((book) => book.Id == bookId);
-            books.Remove(bookToDelete);
-            books.Add(bookToUpdate);
+            Book bookToDelete = _books.Find((book) => book.Id == bookId);
+            _books.Remove(bookToDelete);
+            _books.Add(bookToUpdate);
+
             return bookToUpdate;
         }
 
         public bool DeleteBook(int bookId)
         {
-            Book bookToDelete = books.Find((book) => book.Id == bookId);
-            return books.Remove(bookToDelete);
+            Book bookToDelete = _books.Find((book) => book.Id == bookId);
+            return _books.Remove(bookToDelete);
         }
 
         public List<Book> GetBooks()
         {
-            return books;
+            return _books;
         }
 
         public Book GetBook(int bookId)
         {
-            return books.Find((book) => book.Id == bookId);
+            return _books.Find((book) => book.Id == bookId);
         }
     }
 }

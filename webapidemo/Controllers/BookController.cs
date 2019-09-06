@@ -1,5 +1,4 @@
-﻿using System.Collections.Generic;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 
 namespace webapidemo.Controllers
 {
@@ -16,38 +15,72 @@ namespace webapidemo.Controllers
 
         // GET: api/Book
         [HttpGet]
-        public List<Book> Get()
+        public ActionResult Get()
         {
-            return bookService.GetBooks();
+            try
+            {
+                return Ok(bookService.GetBooks());
+            }
+            catch (BadRequestException exception)
+            {
+                return BadRequest(new Error(exception.Message));
+            }
         }
 
         // GET: api/Book/5
         [HttpGet("{bookId}", Name = "Get")]
-
-        public Book Get(int bookId)
+        public ActionResult Get(int bookId)
         {
-            return bookService.GetBook(bookId);
+            try
+            {
+                return Ok(bookService.GetBook(bookId));
+            }
+            catch (BadRequestException exception)
+            {
+                return BadRequest(new Error(exception.Message));
+            }
         }
 
         // POST: api/Book
         [HttpPost]
-        public Book Post([FromBody] Book book)
+        public ActionResult Post([FromBody] Book book)
         {
-            return bookService.CreateBook(book);
+            try
+            {
+                return Ok(bookService.CreateBook(book));
+            }
+            catch (BadRequestException exception)
+            {
+                return BadRequest(new Error(exception.Message));
+            }
         }
 
         // PUT: api/Book/5
         [HttpPut("{bookId}")]
-        public Book Put(int bookId, [FromBody] Book book)
+        public ActionResult Put(int bookId, [FromBody] Book book)
         {
-            return bookService.UpdateBook(bookId, book);
+            try
+            {
+                return Ok(bookService.UpdateBook(bookId, book));
+            }
+            catch (BadRequestException exception)
+            {
+                return BadRequest(new Error(exception.Message));
+            }
         }
 
         // DELETE: api/Book/5
         [HttpDelete("{bookId}")]
-        public bool Delete(int bookId)
+        public ActionResult Delete(int bookId)
         {
-            return bookService.DeleteBook(bookId);
+            try
+            {
+                return Ok(bookService.DeleteBook(bookId));
+            }
+            catch (BadRequestException exception)
+            {
+                return BadRequest(new Error(exception.Message));
+            }
         }
     }
 }

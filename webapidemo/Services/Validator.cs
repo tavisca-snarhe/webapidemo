@@ -1,25 +1,39 @@
-﻿using System.Text.RegularExpressions;
+﻿using System;
+using System.Text.RegularExpressions;
 
 namespace webapidemo.Controllers
 {
     public static class Validator
     {
-        public static string ValidateBook(Book book)
+        public static bool IsValidBook(Book book, out string error)
         {
-            string responseMessage = "";
+            error = "";
 
             if (book.Id < 0)
-                responseMessage += "Id Should be a positive integer.\n";
+                error += "Id Should be a positive integer." + Environment.NewLine;
             if (book.Price < 0)
-                responseMessage += "Price Should be a positive integer.\n";
+                error += "Price Should be a positive integer.\n";
             if (string.IsNullOrEmpty(book.Name) || !IsValidString(book.Name))
-                responseMessage += "Name is required and should contain only alphabets.\n";
+                error += "Name is required and should contain only alphabets." + Environment.NewLine;
             if (string.IsNullOrEmpty(book.Category) || !IsValidString(book.Category))
-                responseMessage += "Category is required and should contain only alphabets.\n";
+                error += "Category is required and should contain only alphabets." + Environment.NewLine;
             if (string.IsNullOrEmpty(book.Author) || !IsValidString(book.Author))
-                responseMessage += "Author is required and should contain only alphabets.\n";
+                error += "Author is required and should contain only alphabets." + Environment.NewLine;
 
-            return responseMessage;
+            if(error == "")
+                return true;
+            return false;
+        }
+
+        public static bool IsValidBookId(int bookId, out string error)
+        {
+            error = null;
+            if (bookId < 0)
+            {
+                error = "Invalid bookId, bookId should be a positive number.";
+                return false;
+            }
+            return true;   
         }
 
         private static bool IsValidString(string input)

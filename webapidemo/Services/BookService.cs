@@ -1,45 +1,58 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 
 namespace webapidemo.Controllers
 {
     public class BookService : IBook
     {
-        BookStore bookStore;
+        private BookStore _bookStore;
 
         public BookService()
         {
-            bookStore = new BookStore();
+            _bookStore = new BookStore();
         }
 
         public Book CreateBook(Book book)
         {
-            //string message = Validator.ValidateBook(book);
-            //if (message != "")
-            //    return message;
+            if(!Validator.IsValidBook(book, out string error))
+                throw new BadRequestException(error);
 
-            return bookStore.AddBook(book);
+            return _bookStore.AddBook(book);
         }
 
         public bool DeleteBook(int bookId)
         {
-            return bookStore.DeleteBook(bookId);
+            if (!Validator.IsValidBookId(bookId, out string error))
+                throw new BadRequestException(error);
+
+            return _bookStore.DeleteBook(bookId);
         }
 
         public Book GetBook(int bookId)
         {
-            //if (bookId < 0)
-            //    return "Invalid bookId, bookId should be a positive number.";
-            return bookStore.GetBook(bookId);
+            if(!Validator.IsValidBookId(bookId, out string error))
+                throw new BadRequestException(error);
+
+            return _bookStore.GetBook(bookId);
         }
 
         public List<Book> GetBooks()
         {
-            return bookStore.GetBooks();
+            return _bookStore.GetBooks();
         }
 
         public Book UpdateBook(int bookId, Book book)
         {
-            return bookStore.UpdateBook(bookId, book);
+            string error = "";
+            if (!Validator.IsValidBookId(bookId, out string invalidBookId))
+                error += invalidBookId + Environment.NewLine;
+            if (!Validator.IsValidBook(book, out string invalidBook))
+                error += invalidBook;
+
+            if (error != "")
+                throw new BadRequestException(error);
+
+            return _bookStore.UpdateBook(bookId, book);
         }
     }
 }

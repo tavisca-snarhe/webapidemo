@@ -9,6 +9,5 @@ namespace webapidemo.Controllers
         Book CreateBook(Book book);
         Book UpdateBook(int bookId, Book book);
         bool DeleteBook(int bookId);
-
     }
 }

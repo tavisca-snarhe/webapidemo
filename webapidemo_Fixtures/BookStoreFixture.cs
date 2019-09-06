@@ -38,5 +38,6 @@ namespace webapidemo_Fixtures
 
             Assert.Equal(null, bookStore.GetBook(book.Id));
         }
+        
     }
 }
