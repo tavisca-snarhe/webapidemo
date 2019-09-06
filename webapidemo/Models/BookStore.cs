@@ -6,8 +6,6 @@ namespace webapidemo.Controllers
     {
         private static List<Book> _books = new List<Book>() { new Book() { Id = 121, Name = "Book2", Category = "Ed", Author = "Saurabh Narhe", Price = 123 } };
 
-        public BookStore() { }
-
         public Book AddBook(Book book)
         {
             _books.Add(book);

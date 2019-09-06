@@ -8,11 +8,11 @@ namespace webapidemo.Controllers
         public static bool IsValidBook(Book book, out string error)
         {
             error = "";
-
-            if (book.Id < 0)
+            
+            if (IsValidBookId(book.Id))
                 error += "Id Should be a positive integer." + Environment.NewLine;
             if (book.Price < 0)
-                error += "Price Should be a positive integer.\n";
+                error += "Price Should be a positive integer." + Environment.NewLine;
             if (string.IsNullOrEmpty(book.Name) || !IsValidString(book.Name))
                 error += "Name is required and should contain only alphabets." + Environment.NewLine;
             if (string.IsNullOrEmpty(book.Category) || !IsValidString(book.Category))
@@ -23,6 +23,11 @@ namespace webapidemo.Controllers
             if(error == "")
                 return true;
             return false;
+        }
+
+        private static bool IsValidBookId(int bookId)
+        {
+            return (bookId > 0);
         }
 
         public static bool IsValidBookId(int bookId, out string error)

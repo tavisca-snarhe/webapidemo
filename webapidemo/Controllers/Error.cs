@@ -3,8 +3,7 @@
 namespace webapidemo.Controllers
 {
     internal class Error : ActionResult
-    {
-
+    { 
         public string Message { get; set; }
         public int Code { get; set; }
 

@@ -17,14 +17,7 @@ namespace webapidemo.Controllers
         [HttpGet]
         public ActionResult Get()
         {
-            try
-            {
-                return Ok(bookService.GetBooks());
-            }
-            catch (BadRequestException exception)
-            {
-                return BadRequest(new Error(exception.Message));
-            }
+            return Ok(bookService.GetBooks());
         }
 
         // GET: api/Book/5
